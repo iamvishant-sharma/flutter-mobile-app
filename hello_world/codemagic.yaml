@@ -25,8 +25,21 @@ workflows:
           source: true
       cancel_previous_builds: false
     scripts:
-      - name: Build for iOS         # Name of the section
-        script: flutter build ios   # The script(s) to be run in that section
+      - name: Install dependencies
+        script: |
+          flutter packages get
+      - name: Run tests
+        script: |
+          flutter test
+      - name: Build APK
+        script: |
+          flutter build apk
+      - name: Build iOS
+        script: |
+          flutter build ios
+    artifacts:
+      - build/**/outputs/**/*.apk
+      - build/**/outputs/bundle/**/*.aab
     artifacts:
       - build/**/outputs/bundle/**/*.aab
     publishing:
